@@ -93,7 +93,7 @@
     
     Method : GET 
     DESC : get all data 
-    http://localhost:8000/todo?username=someUsernamef&password=somePassword
+    http://localhost:8000/todo?username=someUsernamef&password=somePassword&priority=(DESC || ASC)
     
     Method : GET 
     DESC : get one data 
