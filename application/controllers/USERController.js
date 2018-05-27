@@ -3,13 +3,34 @@
 module.exports = function (TOOLS, MODULES, CONSTANTS) {
     
     // deklarasikan crud service disini
-    const TODOService = TOOLS.SERVICES.TODOService;
-
+    const USERService = TOOLS.SERVICES.USERService;
+    const model = 'user';
     return {
         
+        auth: function(req, cb){
+            let {username, password} = Object.assign(req.params, req.body, req.query);
+
+            if(!username || !password){
+                cb({code : 400, message : 'need username and password for auth'}, null);
+                return;
+            }
+            
+            USERService.findOneWithCustomOpts(model, {where :{username : username, password : password}}, function(err, result){
+                if(err){
+                    cb(err);
+                    return;
+                }
+
+                if(!result){
+                    cb({code : 400, message : 'cant find username and password'}, null);
+                    return;
+                }
+                cb(null, {message : ` auth success`, result: result, user_id : result.dataValues.id});
+            });
+        },
         // add controller getList here
-        getList: function (model, callback) {
-            TODOService.findAll(model, function (err, result) {
+        getList: function (callback) {
+            USERService.findAll(model, function (err, result) {
                 if (err) {
                     callback(err, null);
                 } else {
@@ -23,8 +44,8 @@ module.exports = function (TOOLS, MODULES, CONSTANTS) {
         },
 
         // add controller getOne here
-        getOne: function (model, opts, callback) {
-            TODOService.findById(model, opts, function (err, result) {
+        getOne: function (opts, callback) {
+            USERService.findById(model, opts, function (err, result) {
                 if (err) {
                     callback(err, null);
                 } else {
@@ -39,8 +60,8 @@ module.exports = function (TOOLS, MODULES, CONSTANTS) {
 
         
         // add controller create here
-        create: function (model, data, callback) {
-            TODOService.create(model, data, function (err, result) {
+        create: function (data, callback) {
+            USERService.create(model, data, function (err, result) {
                 if (err) {
                     callback(err, null);
                 } else {
@@ -54,8 +75,8 @@ module.exports = function (TOOLS, MODULES, CONSTANTS) {
         },
 
         // add controller update here
-        update: function (model, id, data, callback) {
-            TODOService.updateData(model, id, data, function (err, result) {
+        update: function (id, data, callback) {
+            USERService.update(model, id, data, function (err, result) {
                 if (err) {
                     callback(err, null);
                 } else {
@@ -68,9 +89,9 @@ module.exports = function (TOOLS, MODULES, CONSTANTS) {
             });
         },
 
-        //add TODOService DELETE by id here
-        delete: function (model, id, callback) {
-            TODOService.destroy(model, id, function (err, result) {
+        //add USERService DELETE by id here
+        delete: function (id, callback) {
+            USERService.destroy(model, id, function (err, result) {
                 if (err) {
                     callback(err, null);
                 } else {

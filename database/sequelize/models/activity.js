@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     priority: DataTypes.INTEGER,
     location: DataTypes.STRING,
+    user_id: DataTypes.INTEGER,
     time_start: DataTypes.DATE
   }, {
     classMethods: {

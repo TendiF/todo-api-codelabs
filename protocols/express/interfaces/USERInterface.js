@@ -5,65 +5,55 @@
 'use strict';
 
 module.exports = function (TOOLS, MODULES, CONSTANTS) {
-    
-    // Deklarasikan todo controller disini
-    const todoController = TOOLS.CONTROLLERS.USERController;
-    const model = 'user'; 
+
+    // Deklarasikan user controller disini
+    const userController = TOOLS.CONTROLLERS.USERController;
     return {
+
+        auth : function(previousData, req, res, next){
+            userController.auth(req,  function(err, result){
+                if(err){
+                    next(err);
+                    return;
+                }
+                next(null, {message : 'auth success'});
+            });
+
+        },
 
         // add interface get list here
         getList: function (previousData, req, res, next) {
-            if (!model) {
-                let error = {code: 400, message: 'Please input models'};
-                next(error, null);
-            } else {
-                todoController.getList(model, next);
-            }
+            userController.getList( next);
+
         },
 
         // add interface get one data by id here
         getOne: function (previousData, req, res, next) {
-            if (!model) {
-                let error = {code: 400, message: 'Please input models'};
-                next(error, null);
-            } else {
-                var id = req.params.id;
-                todoController.getOne(model, id, next);
-            }
+
+            var id = req.params.id;
+            userController.getOne( id, next);
         },
 
         // add interface post/create here
         create: function (previousData, req, res, next) {
-            if (!model) {
-                let error = {code: 400, message: 'Please input models'};
-                next(error, null);
-            } else {
-                var data = req.body;
-                todoController.create(model, data, next);
-            }
+
+            var data = req.body;
+            userController.create( data, next);
         },
 
         // add interface update here
         update: function (previousData, req, res, next) {
-            if (!model) {
-                let error = {code: 400, message: 'Please input models'};
-                next(error, null);
-            } else {
-                var id = req.params.id;
-                var data = req.body;
-                todoController.update(model, id, data, next);
-            }
+
+            var id = req.params.id;
+            var data = req.body;
+            userController.update( id, data, next);
         },
 
         // add interface delete here
         delete: function (previousData, req, res, next) {
-            if (!model) {
-                let error = {code: 400, message: 'Please input models'};
-                next(error, null);
-            } else {
-                var id = req.params.id;
-                todoController.delete(model, id, next);
-            }
+
+            var id = req.params.id;
+            userController.delete( id, next);
         }
     };
 };

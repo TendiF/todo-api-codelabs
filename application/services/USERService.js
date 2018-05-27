@@ -5,34 +5,34 @@ module.exports = function (TOOLS, MODULES, CONSTANTS) {
     // deklarasikan tool models here
     let models = TOOLS.MODELS;
 
-    var TODOService = {
+    var USERService = {
 
-        //add TODOService GET all here
+        //add USERService GET all here
 
         findAll: function (modelName, cb) {
             models[modelName].findAndCountAll().nodeify(cb);
         },
 
-        //add TODOService GET by id here
+        //add USERService GET by id here
 
         findById: function (modelName, id, cb) {
             models[modelName].findById(id).nodeify(cb);
         },
 
-        //add TODOService POST here
+        //add USERService POST here
 
         create: function (modelName, opts, cb) {
             models[modelName].create(opts).nodeify(cb);
         },
 
-        //add TODOService UPDATE by id here
+        //add USERService UPDATE by id here
 
         update: function (modelName, id, opts, cb) {
             var whereOpts = { where: { id: id } };
             models[modelName].update(opts, whereOpts).nodeify(cb);
         },
 
-        //add TODOService DELETE by id here
+        //add USERService DELETE by id here
 
         destroy: function (modelName, opts, cb) {
             var whereOpts = { where: { id: opts } };
@@ -101,5 +101,5 @@ module.exports = function (TOOLS, MODULES, CONSTANTS) {
         },
     };
 
-    return TODOService;
+    return USERService;
 };

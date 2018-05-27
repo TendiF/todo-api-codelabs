@@ -8,8 +8,8 @@ module.exports = function (TOOLS, MODULES, CONSTANTS) {
     return {
         
         // add controller getList here
-        getList: function (model, callback) {
-            TODOService.findAll(model, function (err, result) {
+        getList: function (model, option, callback) {
+            TODOService.findAllWithCustomOpts(model, option, function (err, result) {
                 if (err) {
                     callback(err, null);
                 } else {
@@ -55,7 +55,7 @@ module.exports = function (TOOLS, MODULES, CONSTANTS) {
 
         // add controller update here
         update: function (model, id, data, callback) {
-            TODOService.updateData(model, id, data, function (err, result) {
+            TODOService.update(model, id, data, function (err, result) {
                 if (err) {
                     callback(err, null);
                 } else {

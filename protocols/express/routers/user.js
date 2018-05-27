@@ -1,6 +1,15 @@
 'use strict';
 
 module.exports = [
+    
+    {
+        method: 'GET',
+        endpoint: '/auth',
+        handlers: [
+            'USERInterface.auth'
+        ]
+    },
+
     // add routes get list here 
     {
         method: 'get',
